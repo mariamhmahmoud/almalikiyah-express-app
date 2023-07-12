@@ -1,4 +1,6 @@
 import express from 'express';
+import mysql from 'mysql2'
+
 const app = express();
 
 const pool = mysql.createPool(
