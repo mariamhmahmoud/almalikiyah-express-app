@@ -7,19 +7,18 @@ dotenv.config()
 
 const app = express();
 
-const pool = mysql.createPool(
-    {
-        host: process.env.MYSQLHOST,
-        user: process.env.MYSQLUSER,
-        password: process.env.MYSQLPASSWORD,
-        database: process.env.MYSQLDATABASE
-    }
-).promise()
+const pool = mysql.createConnection({
+    host: process.env.MYSQL_HOST,
+    port: process.env.MYSQL_PORT,
+    user: process.env.MYSQL_USER,
+    password: process.env.MYSQL_PASSWORD,
+    database: process.env.MYSQL_DB,
+}).promise();
 
 app.get('/', async (req, res) => {
     const [admin] = await pool.query("SELECT * FROM admin")
     console.log(admin)
-    res.send(admin, 'Choo Choo! Welcome to your Express app 🚅');
+    res.send('Choo Choo! Welcome to your Express app 🚅');
 })
 
 app.get("/json", (req, res) => {
