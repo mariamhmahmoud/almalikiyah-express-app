@@ -11,7 +11,8 @@ const pool = mysql.createPool(
 ).promise()
 
 app.get('/', async (req, res) => {
-    const [admin] = await pool.query("SELECT * FROM ADMIN WHERE username = ?", [username])
+    const [admin] = await pool.query("SELECT * FROM admin")
+    console.log(admin)
     res.send(admin, 'Choo Choo! Welcome to your Express app 🚅');
 })
 
