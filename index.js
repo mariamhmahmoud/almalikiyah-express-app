@@ -9,10 +9,10 @@ const app = express();
 
 const pool = mysql.createPool(
     {
-        host: process.env.MYSQLHOST,
-        user: process.env.MYSQLUSER,
-        password: process.env.MYSQLPASSWORD,
-        database: process.env.MYSQLDATABASE
+        host: '127.0.0.1',
+        user: 'root',
+        password: '',
+        database: 'almalikiyah'
     }
 ).promise()
 
