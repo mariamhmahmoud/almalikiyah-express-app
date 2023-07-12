@@ -2,7 +2,7 @@ import express from 'express';
 import mysql from 'mysql2'
 import dotenv from 'dotenv'
 
-require('dotenv').config()
+dotenv.config()
 
 
 const app = express();
