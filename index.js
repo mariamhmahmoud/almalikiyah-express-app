@@ -1,12 +1,22 @@
 import express from 'express';
 const app = express();
 
-app.get('/', (req, res) => {
-    res.send('Choo Choo! Welcome to your Express app 🚅');
+const pool = mysql.createPool(
+    {
+        host: process.env.MYSQLHOST,
+        user: process.env.MYSQLUSER,
+        password: process.env.MYSQLPASSWORD,
+        database: process.env.MYSQLDATABASE
+    }
+).promise()
+
+app.get('/', async (req, res) => {
+    const [admin] = await pool.query("SELECT * FROM ADMIN WHERE username = ?", [username])
+    res.send(admin, 'Choo Choo! Welcome to your Express app 🚅');
 })
 
 app.get("/json", (req, res) => {
-    res.json({"Choo Choo": "Welcome to your Express app 🚅"});
+    res.json({ "Choo Choo": "Welcome to your Express app 🚅" });
 })
 
 const port = process.env.PORT || 3000;
