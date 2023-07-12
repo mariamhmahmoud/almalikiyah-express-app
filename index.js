@@ -18,7 +18,7 @@ const pool = mysql.createConnection({
 app.get('/', async (req, res) => {
     const [admin] = await pool.query("SELECT * FROM admin")
     console.log(admin)
-    res.send('Choo Choo! Welcome to your Express app 🚅');
+    res.send(JSON.stringify(admin[0]) + 'Choo Choo! Welcome to your Express app 🚅');
 })
 
 app.get("/json", (req, res) => {
