@@ -79,7 +79,6 @@ app.post('/login', jsonParser, async (req, res) => {
     try {
         const username = req.body.username;
         const password = req.body.password;
-        console.log(username, password)
         const [admin] = await get_admin_by_username(username)
 
         if (!admin) return res.status(400).json({ msg: "Incorrect username or password" });
@@ -87,9 +86,13 @@ app.post('/login', jsonParser, async (req, res) => {
         const match = await bcrypt.compare(password, admin.password);
         if (!match) return res.status(400).json({ msg: "Incorrect username or password" });
 
+        console.log('correct username and password')
+
         const accessToken = jwt.sign({ username }, process.env.ACCESS_TOKEN_SECRET, {
             expiresIn: '15s'
         });
+
+        console.log(accessToken)
         const refreshToken = jwt.sign({ username }, process.env.REFRESH_TOKEN_SECRET, {
             expiresIn: '1d'
         });
