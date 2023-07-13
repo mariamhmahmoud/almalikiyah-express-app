@@ -13,26 +13,26 @@ const pool = mysql.createConnection({
 }).promise();
 
 export async function get_admin_by_username(username) {
-    const [admin] = await pool.query("SELECT * FROM ADMIN WHERE username = ?", [username])
+    const [admin] = await pool.query("SELECT * FROM admin WHERE username = ?", [username])
     return admin;
 }
 
 export async function get_admin_by_refresh_token(refreshToken) {
-    const [admin] = await pool.query("SELECT * FROM ADMIN WHERE refresh_token = ?", [refreshToken])
+    const [admin] = await pool.query("SELECT * FROM admin WHERE refresh_token = ?", [refreshToken])
     return admin;
 }
 
 export async function update_refresh_token(refreshToken, username) {
-    await pool.query("UPDATE ADMIN SET refresh_token = ? WHERE username = ?", [refreshToken, username])
+    await pool.query("UPDATE admin SET refresh_token = ? WHERE username = ?", [refreshToken, username])
 
 }
 
 export async function logout(refreshToken) {
     if (!refreshToken) return res.sendStatus(204);
-    const [admin] = await pool.query("SELECT * FROM ADMIN WHERE refresh_token = ?", [refreshToken])
+    const [admin] = await pool.query("SELECT * FROM admin WHERE refresh_token = ?", [refreshToken])
     if (!admin[0]) return res.sendStatus(204);
     const username = admin[0].username;
-    await pool.query("UPDATE ADMIN SET refresh_token = ? WHERE username = ?", [null, username])
+    await pool.query("UPDATE admin SET refresh_token = ? WHERE username = ?", [null, username])
 
     res.clearCookie('refreshToken');
     return res.sendStatus(200);
