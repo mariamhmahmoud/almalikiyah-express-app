@@ -6,13 +6,13 @@ import bodyParser from 'body-parser'
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import cookieParser from 'cookie-parser';
-import cors from "cors";
+// import cors from "cors";
 
 const PORT = process.env.PORT || 3001;
 
 const app = express();
 app.use(cookieParser())
-app.use(cors())
+// app.use(cors())
 var jsonParser = bodyParser.json()
 
 app.use(bodyParser.json())
