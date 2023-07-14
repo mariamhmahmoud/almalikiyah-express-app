@@ -125,6 +125,7 @@ app.get('/logout', jsonParser, async (req, res) => {
 
 app.get('/token', jsonParser, async (req, res) => {
     try {
+        console.log(req)
         console.log(req.cookies)
         const refreshToken = req.cookies.refreshToken;
         if (!refreshToken) return res.sendStatus(401);
