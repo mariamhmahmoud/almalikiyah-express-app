@@ -103,6 +103,7 @@ app.post('/login', jsonParser, async (req, res) => {
             httpOnly: true,
             maxAge: 24 * 60 * 60 * 1000
         });
+        console.log(res)
         res.json({ accessToken });
     } catch (error) {
         console.log(error)
@@ -125,7 +126,6 @@ app.get('/logout', jsonParser, async (req, res) => {
 
 app.get('/token', jsonParser, async (req, res) => {
     try {
-        console.log(req)
         console.log(req.cookies)
         const refreshToken = req.cookies.refreshToken;
         if (!refreshToken) return res.sendStatus(401);
