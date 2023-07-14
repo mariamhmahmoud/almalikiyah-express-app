@@ -7,6 +7,8 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import cookieParser from 'cookie-parser';
 import cors from "cors";
+import { verifyToken } from "../middleware/VerifyToken.js";
+
 
 const PORT = process.env.PORT || 3001;
 
@@ -86,8 +88,6 @@ app.post('/login', jsonParser, async (req, res) => {
         const match = await bcrypt.compare(password, admin.password);
         if (!match) return res.status(400).json({ msg: "Incorrect username or password" });
 
-        console.log('correct username and password')
-
         const accessToken = jwt.sign({ username }, process.env.ACCESS_TOKEN_SECRET, {
             expiresIn: '15s'
         });
@@ -103,7 +103,6 @@ app.post('/login', jsonParser, async (req, res) => {
             httpOnly: true,
             maxAge: 24 * 60 * 60 * 1000
         });
-        console.log(res)
         res.json({ accessToken });
     } catch (error) {
         console.log(error)
@@ -126,7 +125,6 @@ app.get('/logout', jsonParser, async (req, res) => {
 
 app.get('/token', jsonParser, async (req, res) => {
     try {
-        console.log(req.cookies)
         const refreshToken = req.cookies.refreshToken;
         if (!refreshToken) return res.sendStatus(401);
         const [admin] = await get_admin_by_refresh_token(refreshToken)
@@ -151,6 +149,10 @@ app.post('/register/', function requestHandler(req, res) {
 });
 
 app.get("/json", (req, res) => {
+    res.json({ "Choo Choo": "Welcome to your Express app 🚅" });
+})
+
+app.get("/testing", verifyToken, (req, res) => {
     res.json({ "Choo Choo": "Welcome to your Express app 🚅" });
 })
 
