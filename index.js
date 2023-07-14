@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 3001;
 
 const app = express();
 app.use(cookieParser())
-app.use(cors({ credentials: true, }))
+app.use(cors({ credentials: true, origin: 'https://create-react-app-site-production-ab6c.up.railway.app/', optionsSuccessStatus: 200 }))
 var jsonParser = bodyParser.json()
 
 app.use(bodyParser.json())
