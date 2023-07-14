@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 3001;
 
 const app = express();
 app.use(cookieParser())
-app.use(cors())
+app.use(cors({ credentials: true, }))
 var jsonParser = bodyParser.json()
 
 app.use(bodyParser.json())
