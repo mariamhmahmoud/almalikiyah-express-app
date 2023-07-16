@@ -4,22 +4,22 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 
-// const pool = mysql.createConnection({
-//     host: process.env.MYSQL_HOST,
-//     port: process.env.MYSQL_PORT,
-//     user: process.env.MYSQL_USER,
-//     password: process.env.MYSQL_PASSWORD,
-//     database: process.env.MYSQL_DB,
-// }).promise();
+const pool = mysql.createConnection({
+    host: process.env.MYSQL_HOST,
+    port: process.env.MYSQL_PORT,
+    user: process.env.MYSQL_USER,
+    password: process.env.MYSQL_PASSWORD,
+    database: process.env.MYSQL_DB,
+}).promise();
 
-const pool = mysql.createPool(
-    {
-        host: '127.0.0.1',
-        user: 'root',
-        password: '',
-        database: 'almalikiyah'
-    }
-).promise()
+// const pool = mysql.createPool(
+//     {
+//         host: '127.0.0.1',
+//         user: 'root',
+//         password: '',
+//         database: 'almalikiyah'
+//     }
+// ).promise()
 
 export async function get_admin_by_username(username) {
     const [admin] = await pool.query("SELECT * FROM admin WHERE username = ?", [username])
