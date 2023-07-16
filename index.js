@@ -7,7 +7,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import cookieParser from 'cookie-parser';
 import cors from "cors";
-import { verifyToken } from "../middleware/VerifyToken.js";
+import { verifyToken } from "./middleware/verifyToken.js";
 
 
 const PORT = process.env.PORT || 3001;
